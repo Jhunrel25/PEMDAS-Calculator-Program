@@ -55,9 +55,8 @@ public class Calculator {
 				.append(" ");
 
 				this.removeAToken(index + 1);
-			}
 
-			else {
+			} else {
 				parenthesisValue
 				.append(this.tokens[ index + 1 ])
 				.append(" ");
