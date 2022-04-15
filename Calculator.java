@@ -20,7 +20,9 @@ public class Calculator {
 			.replaceAll("(?<=[)])(?=[\\^*/+-])", " ")
 			.replaceAll("(?<=[\\^*/+-])(?=[(])", " ")
 			.replaceAll("(?<=[(])(?=[\\d])", " ")
-			.replaceAll("(?<=[\\d])(?=[)])", " ");
+			.replaceAll("(?<=[\\d])(?=[)])", " ")
+			.replaceAll("(?<=[(])(?=[(])", " ")
+			.replaceAll("(?<=[)])(?=[)])", " ");
 	}
 
 
@@ -43,15 +45,25 @@ public class Calculator {
 	}
 
 
-	private void parenthesis(int index) {
+	private String parenthesis(int index) {
 		StringBuilder parenthesisValue = new StringBuilder();
 
 		while (!(this.tokens[ index + 1 ].equals(")"))) {
-			parenthesisValue
-			.append(this.tokens[ index + 1 ])
-			.append(" ");
+			if (this.tokens[ index + 1 ].equals("(")) {
+				parenthesisValue
+				.append(this.parenthesis(index + 1))
+				.append(" ");
 
-			this.removeAToken(index + 1);
+				this.removeAToken(index + 1);
+			}
+
+			else {
+				parenthesisValue
+				.append(this.tokens[ index + 1 ])
+				.append(" ");
+
+				this.removeAToken(index + 1);
+			}
 		}
 		this.removeAToken(index + 1);
 
@@ -61,6 +73,8 @@ public class Calculator {
 			new Calculator(parenthesisValue.toString())
 			.equals()
 		);
+
+		return this.tokens[ index ];
 	}
 
 
