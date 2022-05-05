@@ -168,6 +168,6 @@ public class Calculator {
 
 
 	public String equals() {
-		return this.orderOfOperation();
+		return new BigDecimal(this.orderOfOperation()).stripTrailingZeros().toString();
 	}
 }
