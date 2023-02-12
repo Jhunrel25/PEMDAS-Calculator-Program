@@ -3,12 +3,12 @@ import java.math.BigDecimal;
 
 public class Calculator {
 
-	private String[] tokens;
-	private int size;
+	private String[]  tokens;
+	private int       size;
 
 	public Calculator(String expression) {
 		this.tokens = this.addSpaces(expression).split("\\s");
-		this.size = this.tokens.length;
+		this.size   = this.tokens.length;
 	}
 
 
@@ -168,6 +168,9 @@ public class Calculator {
 
 
 	public String equals() {
-		return new BigDecimal(this.orderOfOperation()).stripTrailingZeros().toString();
+		if (this.orderOfOperation().length() > 15)
+			return new BigDecimal(this.orderOfOperation()).stripTrailingZeros().toString();
+
+		return this.orderOfOperation();
 	}
 }
